@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Heroku上でのいたずらを防ぐためにBasic認証を付ける
-  def authenticate_with_basic_auth!
+  def authenticate_with_basic_auth
     if Rails.env.production?
       authenticate_or_request_with_http_basic do |user, pass|
         user == ENV['BASIC_AUTH_USER'] && pass == ENV['BASIC_AUTH_PASS']
