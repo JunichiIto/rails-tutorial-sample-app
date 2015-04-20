@@ -29,6 +29,9 @@ group :development, :test do
   gem 'web-console', '2.0.0.beta3'
 
   gem 'spring', '1.1.3'
+
+  gem 'rspec-rails', '3.2.1'
+  gem 'factory_girl_rails', '4.5.0'
 end
 
 group :test do
@@ -36,6 +39,10 @@ group :test do
   gem 'mini_backtrace', '0.1.3'
   gem 'guard-minitest', '2.3.1'
   gem 'simplecov', '0.9.2'
+
+  gem 'capybara', '2.4.4'
+  gem 'launchy', '2.4.3'
+  gem 'database_cleaner', '1.4.1'
 end
 
 group :production do
