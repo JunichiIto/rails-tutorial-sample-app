@@ -32,16 +32,21 @@ describe 'User login', type: :feature do
     skip 'Controller specでテストする'
   end
 
+  let(:cookies) do
+    Capybara.current_session.driver.request.cookies
+  end
+
   it 'login with remembering' do
     log_in_as(@user, remember_me: '1')
-    expect(Capybara.current_session.driver.request.cookies['remember_token'] ).to_not be_nil
+    expect(cookies['remember_token'] ).to_not be_nil
   end
 
   it 'login without remembering' do
     log_in_as(@user, remember_me: '0')
-    expect(Capybara.current_session.driver.request.cookies['remember_token'] ).to be_nil
+    expect(cookies['remember_token'] ).to be_nil
   end
 end
+
 # require 'test_helper'
 #
 # class UsersLoginTest < ActionDispatch::IntegrationTest
