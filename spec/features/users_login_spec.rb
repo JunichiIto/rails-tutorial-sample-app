@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# TODO have_selector に書き換える
 describe 'User login', type: :feature do
   before do
     @user = FactoryGirl.create :michael
