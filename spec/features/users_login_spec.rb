@@ -29,7 +29,11 @@ describe 'User login', type: :feature do
     expect(current_path).to eq root_path
 
     # Simulate a user clicking logout in a second window.
-    skip 'Controller specでテストする'
+    # => See sessions_controller_spec
+
+    expect(page).to have_link 'Log in'
+    expect(page).to_not have_link 'Log out'
+    expect(page).to_not have_link 'Profile'
   end
 
   let(:cookies) do

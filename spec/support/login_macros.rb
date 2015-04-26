@@ -1,6 +1,10 @@
 module LoginMacros
   def is_logged_in?
-    find('header').text =~ /Account/
+    if self.respond_to? :session
+      session[:user_id]
+    else
+      find('header').text =~ /Account/
+    end
   end
 
   def log_in_as(user, options = {})
