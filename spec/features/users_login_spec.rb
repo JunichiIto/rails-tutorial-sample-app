@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-# TODO have_selector に書き換える
 describe 'User login', type: :feature do
   before do
     @user = FactoryGirl.create :michael
@@ -10,9 +9,9 @@ describe 'User login', type: :feature do
     visit login_path
     expect(current_path).to eq login_path
     click_button 'Log in'
-    expect(page).to have_css '.alert'
+    expect(page).to have_selector '.alert'
     visit root_path
-    expect(page).to_not have_css '.alert'
+    expect(page).to_not have_selector '.alert'
   end
 
   it 'login with valid information' do
@@ -22,9 +21,9 @@ describe 'User login', type: :feature do
     click_button 'Log in'
     expect(is_logged_in?).to be_truthy
     expect(current_path).to eq user_path(@user)
-    expect(page).to_not have_link 'Log in'
-    expect(page).to have_link 'Log out'
-    expect(page).to have_link 'Profile'
+    expect(page).to_not have_link 'Log in', href: login_path
+    expect(page).to have_link 'Log out', href: logout_path
+    expect(page).to have_link 'Profile', href: user_path(@user)
     click_link 'Log out'
     expect(is_logged_in?).to_not be_truthy
     expect(current_path).to eq root_path
@@ -32,9 +31,9 @@ describe 'User login', type: :feature do
     # Simulate a user clicking logout in a second window.
     # => See sessions_controller_spec
 
-    expect(page).to have_link 'Log in'
-    expect(page).to_not have_link 'Log out'
-    expect(page).to_not have_link 'Profile'
+    expect(page).to have_link 'Log in', href: login_path
+    expect(page).to_not have_link 'Log out', href: logout_path
+    expect(page).to_not have_link 'Profile', href: user_path(@user)
   end
 
   let(:cookies) do
