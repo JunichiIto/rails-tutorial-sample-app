@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User signup', type: :feature do
+describe 'Users signup', type: :feature do
   before do
     ActionMailer::Base.deliveries.clear
   end
