@@ -45,6 +45,10 @@ group :test do
   gem 'database_cleaner', '1.4.1'
 end
 
+group :development do
+  gem 'spring-commands-rspec', '1.0.4'
+end
+
 group :production do
   gem 'pg', '0.17.1'
   gem 'rails_12factor', '0.0.2'
