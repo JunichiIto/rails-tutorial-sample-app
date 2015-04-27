@@ -56,6 +56,26 @@ describe 'Password reset' do
     expect(page).to have_selector '.alert'
     expect(current_path).to eq user_path(@user)
   end
+
+  # See Listing 10.57
+  it 'expired token' do
+    visit new_password_reset_path
+    fill_in 'Email', with: @user.email
+    click_button 'Submit'
+
+    mail = ActionMailer::Base.deliveries.last
+    reset_token = mail.body.encoded[/(?<=password_resets\/)[^\/]+/]
+    visit edit_password_reset_path(reset_token, email: @user.email)
+    fill_in 'Password', with: 'foobar'
+    fill_in 'Confirmation', with: 'foobar'
+
+    @user.update_attribute(:reset_sent_at, 3.hours.ago)
+
+    click_button 'Update password'
+
+    expect(current_path).to eq new_password_reset_path
+    expect(page).to have_content 'Password reset has expired'
+  end
 end
 
 # require 'test_helper'
