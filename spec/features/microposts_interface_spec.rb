@@ -17,7 +17,7 @@ describe 'Microposts interface' do
 
     content = 'This micropost really ties the room together'
     fill_in 'micropost_content', with: content
-    picture = 'test/fixtures/rails.png'
+    picture = 'spec/fixtures/rails.png'
     attach_file 'micropost_picture', picture
     expect{click_button 'Post'}.to change{Micropost.count}.by(1)
     expect(Micropost.unscoped.order(:id).last.picture?).to be_truthy
