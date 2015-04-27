@@ -12,7 +12,7 @@ describe 'Users signup', type: :feature do
     fill_in 'Password', with: 'foo'
     fill_in 'Confirmation', with: 'bar'
     expect { click_on 'Create my account' }.to_not change { User.count }
-    expect(current_path).to eq users_path
+    expect(page).to have_selector 'h1', text: 'Sign up'
   end
 
   it 'valid signup information with account activation' do
@@ -38,7 +38,7 @@ describe 'Users signup', type: :feature do
 
     visit edit_account_activation_path(activation_token, email: user.email)
     expect(user.reload.activated?).to be_truthy
-    expect(current_path).to eq user_path(user)
+    expect(page).to have_selector 'h1', text: user.name
     expect(is_logged_in?).to be_truthy
   end
 end

@@ -7,8 +7,9 @@ describe 'Users login', type: :feature do
 
   it 'login with invalid information' do
     visit login_path
-    expect(current_path).to eq login_path
+    expect(page).to have_selector 'h1', text: 'Log in'
     click_button 'Log in'
+    expect(page).to have_selector 'h1', text: 'Log in'
     expect(page).to have_selector '.alert'
     visit root_path
     expect(page).to_not have_selector '.alert'
@@ -21,6 +22,7 @@ describe 'Users login', type: :feature do
     click_button 'Log in'
     expect(is_logged_in?).to be_truthy
     expect(current_path).to eq user_path(@user)
+    expect(page).to have_selector 'h1', text: @user.name
     expect(page).to_not have_link 'Log in', href: login_path
     expect(page).to have_link 'Log out', href: logout_path
     expect(page).to have_link 'Profile', href: user_path(@user)
