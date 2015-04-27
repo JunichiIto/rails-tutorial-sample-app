@@ -4,7 +4,7 @@ describe StaticPagesController do
   it 'should get home' do
     get :home
     expect(response).to have_http_status(:success)
-    # Title is tested in features/site_layout_spec.rb
+    # Title is tested in features/static_pages.rb
   end
 
   it 'should get help' do
