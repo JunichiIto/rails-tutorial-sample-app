@@ -20,7 +20,8 @@ describe 'Microposts interface' do
     picture = 'spec/fixtures/rails.png'
     attach_file 'micropost_picture', picture
     expect{click_button 'Post'}.to change{Micropost.count}.by(1)
-    expect(Micropost.unscoped.order(:id).last.picture?).to be_truthy
+    new_micropost = Micropost.unscoped.order(:id).last
+    expect(new_micropost.picture?).to be_truthy
     expect(current_path).to eq root_path
     expect(page).to have_content content
 
