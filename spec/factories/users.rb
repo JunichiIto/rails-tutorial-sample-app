@@ -16,6 +16,20 @@ FactoryGirl.define do
     factory :archer do
       name 'Sterling Archer'
       email 'duchess@example.gov'
+      after :create do |user|
+        create :ants, user: user
+        create :zone, user: user
+      end
+    end
+
+    factory :lana do
+      name 'Lana Kane'
+      email 'hands@example.gov'
+    end
+
+    factory :mallory do
+      name 'Mallory Archer'
+      email 'boss@example.gov'
     end
   end
 end
