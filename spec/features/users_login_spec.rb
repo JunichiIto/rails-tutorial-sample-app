@@ -44,12 +44,12 @@ describe 'Users login', type: :feature do
 
   it 'login with remembering' do
     log_in_as(@user, remember_me: '1')
-    expect(cookies['remember_token'] ).to_not be_nil
+    expect(cookies['remember_token']).to_not be_nil
   end
 
   it 'login without remembering' do
     log_in_as(@user, remember_me: '0')
-    expect(cookies['remember_token'] ).to be_nil
+    expect(cookies['remember_token']).to be_nil
   end
 end
 
