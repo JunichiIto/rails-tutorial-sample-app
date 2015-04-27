@@ -11,6 +11,12 @@ FactoryGirl.define do
       name 'Michael Example'
       email 'michael@example.com'
       admin true
+      after :create do |user|
+        create :tau_manifesto, user: user
+        create :cat_video, user: user
+        create :most_recent, user: user
+        30.times { create :micropost, user: user }
+      end
     end
 
     factory :archer do

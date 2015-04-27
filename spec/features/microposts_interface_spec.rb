@@ -3,8 +3,6 @@ require 'rails_helper'
 describe 'Microposts interface' do
   before do
     @user = FactoryGirl.create :michael
-    default_per_page = 30
-    FactoryGirl.create_list :micropost, (default_per_page + 1), user: @user
     @archer = FactoryGirl.create :archer
   end
 
