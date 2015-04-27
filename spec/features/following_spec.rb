@@ -4,13 +4,7 @@ describe 'Following' do
   before do
     @user = FactoryGirl.create :michael
     @other = FactoryGirl.create :archer
-
-    lana = FactoryGirl.create :lana
-    mallory = FactoryGirl.create :mallory
-    FactoryGirl.create :relationship, follower: @user, followed: lana
-    FactoryGirl.create :relationship, follower: @user, followed: mallory
-    FactoryGirl.create :relationship, follower: lana, followed: @user
-    FactoryGirl.create :relationship, follower: @other, followed: @user
+    create_relationships(michael: @user, archer: @other)
 
     log_in_as @user
   end

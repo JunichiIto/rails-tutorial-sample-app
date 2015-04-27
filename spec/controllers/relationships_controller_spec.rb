@@ -2,9 +2,7 @@ require 'rails_helper'
 
 describe RelationshipsController do
   before do
-    user = FactoryGirl.create :michael
-    other = FactoryGirl.create :archer
-    @relationship = FactoryGirl.create :relationship, follower: user, followed: other
+    @relationships = create_relationships
   end
 
   it 'create should require logged-in user' do
@@ -13,7 +11,7 @@ describe RelationshipsController do
   end
 
   it 'destryoy should require logged-in user' do
-    expect{delete :destroy, id: @relationship}.to_not change{Relationship.count}
+    expect{delete :destroy, id: @relationships.first}.to_not change{Relationship.count}
     expect(response).to redirect_to login_url
   end
 end
