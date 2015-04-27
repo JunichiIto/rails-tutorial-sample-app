@@ -31,6 +31,10 @@ FactoryGirl.define do
     factory :lana do
       name 'Lana Kane'
       email 'hands@example.gov'
+      after :create do |user|
+        create :tone, user: user
+        create :van, user: user
+      end
     end
 
     factory :mallory do

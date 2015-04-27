@@ -72,6 +72,7 @@ RSpec.configure do |config|
   end
 
   config.include LoginMacros
+  config.include RelationshipMacros
 
   Capybara.javascript_driver = :poltergeist
 end
