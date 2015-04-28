@@ -74,6 +74,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include LoginMacros
   config.include RelationshipMacros
+  config.include MailMacros
 
   Capybara.javascript_driver = :poltergeist
 end

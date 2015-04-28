@@ -21,8 +21,7 @@ feature 'Password reset' do
     expect(page).to have_selector '.alert'
     expect(current_path).to eq root_path
 
-    mail = ActionMailer::Base.deliveries.last
-    reset_token = mail.body.encoded[/(?<=password_resets\/)[^\/]+/]
+    reset_token = extract_reset_token_from_last_mail
 
     visit edit_password_reset_path(reset_token, email: '')
     expect(current_path).to eq root_path
@@ -63,8 +62,8 @@ feature 'Password reset' do
     fill_in 'Email', with: @user.email
     click_button 'Submit'
 
-    mail = ActionMailer::Base.deliveries.last
-    reset_token = mail.body.encoded[/(?<=password_resets\/)[^\/]+/]
+    reset_token = extract_reset_token_from_last_mail
+
     visit edit_password_reset_path(reset_token, email: @user.email)
     fill_in 'Password', with: 'foobar'
     fill_in 'Confirmation', with: 'foobar'

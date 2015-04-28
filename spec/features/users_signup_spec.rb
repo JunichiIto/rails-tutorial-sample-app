@@ -23,7 +23,7 @@ feature 'Users signup', type: :feature do
     fill_in 'Confirmation', with: 'password'
     expect { click_on 'Create my account' }.to change { User.count }.by(1)
     expect(ActionMailer::Base.deliveries.size).to eq 1
-    activation_token = ActionMailer::Base.deliveries.last.body.encoded[/(?<=account_activations\/)[^\/]+/]
+    activation_token = extract_activation_token_from_last_mail
     user = User.last
     expect(user).to_not be_activated
 
