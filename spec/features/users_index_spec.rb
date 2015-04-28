@@ -28,7 +28,7 @@ feature 'Users index' do
   scenario 'index as non-admin' do
     log_in_as(non_admin)
     visit users_path
-    expect(page).to_not have_selector 'a', text: 'delete'
+    expect(page).to_not have_link 'delete'
   end
 end
 
