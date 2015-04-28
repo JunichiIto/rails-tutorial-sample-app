@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe SessionsHelper do
   before do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
     remember(@user)
   end
 

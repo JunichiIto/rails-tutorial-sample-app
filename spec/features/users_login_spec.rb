@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Users login', type: :feature do
   background do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
 
   scenario 'login with invalid information' do

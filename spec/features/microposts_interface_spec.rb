@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Microposts interface' do
   background do
-    @user = FactoryGirl.create :michael
-    @archer = FactoryGirl.create :archer
+    @user = create :michael
+    @archer = create :archer
   end
 
   scenario 'micripost interface' do

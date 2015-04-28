@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Following' do
   background do
-    @user = FactoryGirl.create :michael
-    @other = FactoryGirl.create :archer
+    @user = create :michael
+    @other = create :archer
     create_relationships(michael: @user, archer: @other)
 
     log_in_as @user

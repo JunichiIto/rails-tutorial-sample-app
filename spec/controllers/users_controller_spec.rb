@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe UsersController do
   before do
-    @user = FactoryGirl.create(:michael)
-    @other_user = FactoryGirl.create(:archer)
+    @user = create(:michael)
+    @other_user = create(:archer)
   end
 
   it 'should get new' do

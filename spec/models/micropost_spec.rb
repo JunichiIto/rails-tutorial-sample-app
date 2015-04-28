@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Micropost do
   before do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
     @micropost = @user.microposts.build(content: 'Lorem ipsum')
   end
 
@@ -26,7 +26,7 @@ describe Micropost do
   end
 
   specify 'order should be most recent first' do
-    content = FactoryGirl.attributes_for(:most_recent)[:content]
+    content = attributes_for(:most_recent)[:content]
     most_recent = Micropost.find_by content: content
     expect(Micropost.first).to eq most_recent
   end

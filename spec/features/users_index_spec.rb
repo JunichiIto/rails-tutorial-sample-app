@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Users index' do
   background do
-    @admin = FactoryGirl.create :michael
-    @non_admin = FactoryGirl.create :archer
-    FactoryGirl.create_list :user, 30
+    @admin = create :michael
+    @non_admin = create :archer
+    create_list :user, 30
   end
 
   scenario 'index as admin including pagination and delete links' do

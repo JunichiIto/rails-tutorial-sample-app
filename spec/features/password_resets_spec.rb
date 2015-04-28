@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Password reset' do
   background do
     ActionMailer::Base.deliveries.clear
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
 
   scenario 'password resets' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Users edit' do
   background do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
 
   scenario 'unsuccessful edit' do

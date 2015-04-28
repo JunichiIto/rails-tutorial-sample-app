@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe MicropostsController do
   before do
-    @user = FactoryGirl.create :michael
-    @micropost = FactoryGirl.create :orange, user: @user
+    @user = create :michael
+    @micropost = create :orange, user: @user
   end
 
   it 'should redirect create when not logged in' do
@@ -18,7 +18,7 @@ describe MicropostsController do
 
   it 'should redirect destroy for wrong micropost' do
     log_in_as(@user)
-    micropost = FactoryGirl.create :ants
+    micropost = create :ants
     expect{delete :destroy, id: micropost}.to_not change{Micropost.count}
     expect(response).to redirect_to root_url
   end

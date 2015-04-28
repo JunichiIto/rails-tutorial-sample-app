@@ -69,8 +69,8 @@ describe User do
   end
 
   it 'should follow and unfollow a user' do
-    michael = FactoryGirl.create :michael
-    archer = FactoryGirl.create :archer
+    michael = create :michael
+    archer = create :archer
     expect(michael).to_not be_following(archer)
     michael.follow(archer)
     expect(michael).to be_following(archer)
@@ -80,9 +80,9 @@ describe User do
   end
 
   specify 'feed should have the right posts' do
-    michael = FactoryGirl.create :michael
-    archer = FactoryGirl.create :archer
-    lana = FactoryGirl.create :lana
+    michael = create :michael
+    archer = create :archer
+    lana = create :lana
 
     create_relationships(michael: michael, archer: archer, lana: lana)
 

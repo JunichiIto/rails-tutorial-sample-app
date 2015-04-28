@@ -4,7 +4,7 @@ feature 'Users profile' do
   include ApplicationHelper
 
   background do
-    @user = FactoryGirl.create :michael
+    @user = create :michael
   end
 
   scenario 'profile display' do
