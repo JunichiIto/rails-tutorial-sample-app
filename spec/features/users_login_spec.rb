@@ -10,9 +10,9 @@ feature 'Users login', type: :feature do
     expect(page).to have_selector 'h1', text: 'Log in'
     click_button 'Log in'
     expect(page).to have_selector 'h1', text: 'Log in'
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     visit root_path
-    expect(page).to_not have_selector '.alert'
+    expect(page).to_not have_flash_message
   end
 
   scenario 'login with valid information' do

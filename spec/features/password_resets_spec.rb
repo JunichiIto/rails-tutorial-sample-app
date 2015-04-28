@@ -11,14 +11,14 @@ feature 'Password reset' do
     expect(page).to have_selector 'h1', 'Forgot password'
 
     click_button 'Submit'
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(page).to have_selector 'h1', 'Forgot password'
 
     fill_in 'Email', with: @user.email
     click_button 'Submit'
     expect(@user.reset_digest).to_not eq @user.reload.reset_digest
     expect(ActionMailer::Base.deliveries.size).to eq 1
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(current_path).to eq root_path
 
     reset_token = extract_reset_token_from_last_mail
@@ -45,14 +45,14 @@ feature 'Password reset' do
     fill_in 'Password', with: ''
     fill_in 'Confirmation', with: 'foobar'
     click_button 'Update password'
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(page).to have_selector 'h1', 'Reset password'
 
     fill_in 'Password', with: 'foobaz'
     fill_in 'Confirmation', with: 'foobaz'
     click_button 'Update password'
     expect(is_logged_in?).to be_truthy
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(current_path).to eq user_path(@user)
   end
 

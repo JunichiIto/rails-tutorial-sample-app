@@ -25,7 +25,7 @@ feature 'Users edit' do
     fill_in 'Name', with: name
     fill_in 'Email', with: email
     click_button 'Save changes'
-    expect(page).to have_selector '.alert'
+    expect(page).to have_flash_message
     expect(current_path).to eq user_path(@user)
     @user.reload
     expect(@user.name).to eq name
