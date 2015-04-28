@@ -10,7 +10,7 @@ describe RelationshipsController do
     expect(response).to redirect_to login_url
   end
 
-  it 'destryoy should require logged-in user' do
+  it 'destroy should require logged-in user' do
     expect{delete :destroy, id: @relationships.first}.to_not change{Relationship.count}
     expect(response).to redirect_to login_url
   end
@@ -26,7 +26,7 @@ end
 #     assert_redirected_to login_url
 #   end
 #
-#   test 'destryoy should require logged-in user' do
+#   test 'destroy should require logged-in user' do
 #     assert_no_difference 'Relationship.count' do
 #       delete :destroy, id: relationships(:one)
 #     end
