@@ -74,7 +74,7 @@ describe User do
     expect(michael).to_not be_following(archer)
     michael.follow(archer)
     expect(michael).to be_following(archer)
-    expect(archer.followers.include?(michael)).to be_truthy
+    expect(archer.followers).to include michael
     michael.unfollow(archer)
     expect(michael).to_not be_following(archer)
   end
@@ -87,15 +87,15 @@ describe User do
     create_relationships(michael: michael, archer: archer, lana: lana)
 
     lana.microposts.each do |post_following|
-      expect(michael.feed.include?(post_following)).to be_truthy
+      expect(michael.feed).to include post_following
     end
 
     michael.microposts.each do |post_self|
-      expect(michael.feed.include?(post_self)).to be_truthy
+      expect(michael.feed).to include post_self
     end
 
     archer.microposts.each do |post_unfollowed|
-      expect(michael.feed.include?(post_unfollowed)).to be_falsey
+      expect(michael.feed).to_not include post_unfollowed
     end
   end
 end
