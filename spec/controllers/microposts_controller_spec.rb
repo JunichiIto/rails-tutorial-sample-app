@@ -8,19 +8,19 @@ describe MicropostsController do
 
   it 'should redirect create when not logged in' do
     expect{post :create, micropost: { content: 'Lorem ipsum' }}.to_not change{Micropost.count}
-    expect(response).to redirect_to login_url
+    expect(response).to redirect_to login_path
   end
 
   it 'should redirect destroy when not logged in' do
     expect{delete :destroy, id: @micropost}.to_not change{Micropost.count}
-    expect(response).to redirect_to login_url
+    expect(response).to redirect_to login_path
   end
 
   it 'should redirect destroy for wrong micropost' do
     log_in_as(@user)
     micropost = create :ants
     expect{delete :destroy, id: micropost}.to_not change{Micropost.count}
-    expect(response).to redirect_to root_url
+    expect(response).to redirect_to root_path
   end
 end
 
