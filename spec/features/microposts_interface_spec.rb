@@ -7,8 +7,8 @@ feature 'Microposts interface' do
   scenario 'micripost interface' do
     log_in_as(user)
     visit root_path
-    expect(page).to have_selector 'div.pagination'
-    expect(page).to have_selector 'input[type=file]'
+    expect(page).to have_selector('div.pagination')
+      .and have_selector('input[type=file]')
 
     expect{click_button 'Post'}.to_not change{Micropost.count}
     expect(page).to have_selector 'div#error_explanation'

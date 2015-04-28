@@ -11,8 +11,8 @@ feature 'Users index' do
   scenario 'index as admin including pagination and delete links' do
     log_in_as(admin)
     visit users_path
-    expect(page).to have_selector 'h1', text: 'All users'
-    expect(page).to have_selector 'div.pagination'
+    expect(page).to have_selector('h1', text: 'All users')
+      .and have_selector('div.pagination')
     first_page_of_users = User.paginate(page: 1)
     first_page_of_users.each do |user|
       expect(page).to have_link user.name, href: user_path(user)

@@ -5,10 +5,10 @@ feature 'Users login', type: :feature do
 
   scenario 'login with invalid information' do
     visit login_path
-    expect(page).to have_selector 'h1', text: 'Log in'
+    expect(page).to have_selector('h1', text: 'Log in')
     click_button 'Log in'
-    expect(page).to have_selector 'h1', text: 'Log in'
-    expect(page).to have_flash_message
+    expect(page).to have_selector('h1', text: 'Log in')
+      .and have_flash_message
     visit root_path
     expect(page).to_not have_flash_message
   end
@@ -18,12 +18,12 @@ feature 'Users login', type: :feature do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    expect(page).to be_logged_in
     expect(current_path).to eq user_path(user)
-    expect(page).to have_selector 'h1', text: user.name
-    expect(page).to_not have_link 'Log in', href: login_path
-    expect(page).to have_link 'Log out', href: logout_path
-    expect(page).to have_link 'Profile', href: user_path(user)
+    expect(page).to be_logged_in
+      .and have_selector('h1', text: user.name)
+      .and have_link('Log out', href: logout_path)
+      .and have_link('Profile', href: user_path(user))
+      .and have_link('Log in', href: login_path, count: 0)
     click_link 'Log out'
     expect(page).to_not be_logged_in
     expect(current_path).to eq root_path
@@ -31,9 +31,9 @@ feature 'Users login', type: :feature do
     # Simulate a user clicking logout in a second window.
     # => See sessions_controller_spec
 
-    expect(page).to have_link 'Log in', href: login_path
-    expect(page).to_not have_link 'Log out', href: logout_path
-    expect(page).to_not have_link 'Profile', href: user_path(user)
+    expect(page).to have_link('Log in', href: login_path)
+      .and have_link('Log out', href: logout_path, count: 0)
+      .and have_link('Profile', href: user_path(user), count: 0)
   end
 
   # NOTE login with/without remembering tests are in sessions_controller_spec

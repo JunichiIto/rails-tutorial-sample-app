@@ -38,8 +38,8 @@ feature 'Users signup', type: :feature do
 
     visit edit_account_activation_path(activation_token, email: user.email)
     expect(user.reload).to be_activated
-    expect(page).to have_selector 'h1', text: user.name
-    expect(page).to be_logged_in
+    expect(page).to have_selector('h1', text: user.name)
+      .and be_logged_in
   end
 end
 #

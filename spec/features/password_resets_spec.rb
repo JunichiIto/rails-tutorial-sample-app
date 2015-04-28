@@ -13,7 +13,7 @@ feature 'Password reset' do
 
     click_button 'Submit'
     expect(page).to have_flash_message
-    expect(page).to have_selector 'h1', 'Forgot password'
+      .and have_selector('h1', 'Forgot password')
 
     fill_in 'Email', with: user.email
     click_button 'Submit'
@@ -47,13 +47,13 @@ feature 'Password reset' do
     fill_in 'Confirmation', with: 'foobar'
     click_button 'Update password'
     expect(page).to have_flash_message
-    expect(page).to have_selector 'h1', 'Reset password'
+      .and have_selector('h1', 'Reset password')
 
     fill_in 'Password', with: 'foobaz'
     fill_in 'Confirmation', with: 'foobaz'
     click_button 'Update password'
     expect(page).to be_logged_in
-    expect(page).to have_flash_message
+      .and have_flash_message
     expect(current_path).to eq user_path(user)
   end
 
