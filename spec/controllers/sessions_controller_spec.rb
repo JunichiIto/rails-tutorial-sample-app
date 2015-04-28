@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe SessionsController do
-  before do
-    @user = create :michael
-  end
+  let(:user) { create :michael }
 
   it 'should get new' do
     get :new
@@ -11,8 +9,8 @@ describe SessionsController do
   end
 
   specify 'a user clicking logout in a second window' do
-    post :create, session: { email: @user.email, password: 'password' }
-    expect(response).to redirect_to(user_path(@user))
+    post :create, session: { email: user.email, password: 'password' }
+    expect(response).to redirect_to(user_path(user))
     expect(session).to be_logged_in
 
     delete :destroy
@@ -25,12 +23,12 @@ describe SessionsController do
   end
 
   specify 'login with remembering' do
-    post :create, session: { email: @user.email, password: 'password', remember_me: '1' }
+    post :create, session: { email: user.email, password: 'password', remember_me: '1' }
     expect(cookies['remember_token']).to be_present
   end
 
   specify 'login without remembering' do
-    post :create, session: { email: @user.email, password: 'password', remember_me: '0' }
+    post :create, session: { email: user.email, password: 'password', remember_me: '0' }
     expect(cookies['remember_token']).to be_blank
   end
 end

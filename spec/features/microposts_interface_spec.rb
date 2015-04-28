@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 feature 'Microposts interface' do
-  background do
-    @user = create :michael
-    @archer = create :archer
-  end
+  given(:user) { create :michael }
+  given(:other) { create :archer }
 
   scenario 'micripost interface' do
-    log_in_as(@user)
+    log_in_as(user)
     visit root_path
     expect(page).to have_selector 'div.pagination'
     expect(page).to have_selector 'input[type=file]'
@@ -17,20 +15,23 @@ feature 'Microposts interface' do
 
     content = 'This micropost really ties the room together'
     fill_in 'micropost_content', with: content
+
     picture = 'spec/fixtures/rails.png'
     attach_file 'micropost_picture', picture
+
     expect{click_button 'Post'}.to change{Micropost.count}.by(1)
+
     new_micropost = Micropost.unscoped.order(:id).last
     expect(new_micropost.picture?).to be_truthy
+
     expect(current_path).to eq root_path
     expect(page).to have_content content
 
     expect(page).to have_link 'delete'
-    first_micropost = @user.microposts.paginate(page: 1).first
-
+    first_micropost = user.microposts.paginate(page: 1).first
     expect{click_link 'delete', href: micropost_path(first_micropost)}.to change{Micropost.count}.by(-1)
 
-    visit user_path(@archer)
+    visit user_path(other)
     expect(page).to_not have_link 'delete'
   end
 end

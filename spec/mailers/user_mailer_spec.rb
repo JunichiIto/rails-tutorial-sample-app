@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 describe UserMailer do
+  let(:user) { create :michael }
+
   specify 'account_activation' do
-    user = create :michael
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
     expect(mail).to have_attributes(
@@ -16,7 +17,6 @@ describe UserMailer do
   end
 
   specify 'password reset' do
-    user = create :michael
     user.reset_token = User.new_token
     mail = UserMailer.password_reset(user)
     expect(mail).to have_attributes(

@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 feature 'Users login', type: :feature do
-  background do
-    @user = create :michael
-  end
+  given(:user) { create :michael }
 
   scenario 'login with invalid information' do
     visit login_path
@@ -17,15 +15,15 @@ feature 'Users login', type: :feature do
 
   scenario 'login with valid information' do
     visit login_path
-    fill_in 'Email', with: @user.email
+    fill_in 'Email', with: user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
     expect(page).to be_logged_in
-    expect(current_path).to eq user_path(@user)
-    expect(page).to have_selector 'h1', text: @user.name
+    expect(current_path).to eq user_path(user)
+    expect(page).to have_selector 'h1', text: user.name
     expect(page).to_not have_link 'Log in', href: login_path
     expect(page).to have_link 'Log out', href: logout_path
-    expect(page).to have_link 'Profile', href: user_path(@user)
+    expect(page).to have_link 'Profile', href: user_path(user)
     click_link 'Log out'
     expect(page).to_not be_logged_in
     expect(current_path).to eq root_path
@@ -35,7 +33,7 @@ feature 'Users login', type: :feature do
 
     expect(page).to have_link 'Log in', href: login_path
     expect(page).to_not have_link 'Log out', href: logout_path
-    expect(page).to_not have_link 'Profile', href: user_path(@user)
+    expect(page).to_not have_link 'Profile', href: user_path(user)
   end
 
   # NOTE login with/without remembering tests are in sessions_controller_spec

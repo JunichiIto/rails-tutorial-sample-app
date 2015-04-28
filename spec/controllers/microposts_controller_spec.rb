@@ -1,10 +1,8 @@
 require 'rails_helper'
 
 describe MicropostsController do
-  before do
-    @user = create :michael
-    @micropost = create :orange, user: @user
-  end
+  let(:user) { create :michael }
+  let!(:micropost) { create :orange, user: user }
 
   it 'should redirect create when not logged in' do
     expect{post :create, micropost: { content: 'Lorem ipsum' }}.to_not change{Micropost.count}
@@ -12,12 +10,12 @@ describe MicropostsController do
   end
 
   it 'should redirect destroy when not logged in' do
-    expect{delete :destroy, id: @micropost}.to_not change{Micropost.count}
+    expect{delete :destroy, id: micropost}.to_not change{Micropost.count}
     expect(response).to redirect_to login_path
   end
 
   it 'should redirect destroy for wrong micropost' do
-    log_in_as(@user)
+    log_in_as(user)
     micropost = create :ants
     expect{delete :destroy, id: micropost}.to_not change{Micropost.count}
     expect(response).to redirect_to root_path

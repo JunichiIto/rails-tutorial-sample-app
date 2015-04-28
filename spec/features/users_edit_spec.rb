@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 feature 'Users edit' do
-  background do
-    @user = create :michael
-  end
+  given(:user) { create :michael }
 
   scenario 'unsuccessful edit' do
-    log_in_as(@user)
-    visit edit_user_path(@user)
+    log_in_as(user)
+    visit edit_user_path(user)
     expect(page).to have_selector 'h1', text: 'Update your profile'
     fill_in 'Email', with: 'foo@invalid'
     fill_in 'Password', with: 'foo'
@@ -17,18 +15,18 @@ feature 'Users edit' do
   end
 
   scenario 'successful edit with friendly forwarding' do
-    visit edit_user_path(@user)
-    log_in_as(@user)
-    expect(current_path).to eq edit_user_path(@user)
+    visit edit_user_path(user)
+    log_in_as(user)
+    expect(current_path).to eq edit_user_path(user)
     name = 'Foo Bar'
     email = 'foo@bar.com'
     fill_in 'Name', with: name
     fill_in 'Email', with: email
     click_button 'Save changes'
     expect(page).to have_flash_message
-    expect(current_path).to eq user_path(@user)
-    @user.reload
-    expect(@user).to have_attributes name: name, email: email
+    expect(current_path).to eq user_path(user)
+    user.reload
+    expect(user).to have_attributes name: name, email: email
   end
 end
 

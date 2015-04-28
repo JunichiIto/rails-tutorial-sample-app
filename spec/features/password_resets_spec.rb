@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 feature 'Password reset' do
+  given(:user) { create :michael }
+  
   background do
     ActionMailer::Base.deliveries.clear
-    @user = create :michael
   end
 
   scenario 'password resets' do
@@ -14,9 +15,9 @@ feature 'Password reset' do
     expect(page).to have_flash_message
     expect(page).to have_selector 'h1', 'Forgot password'
 
-    fill_in 'Email', with: @user.email
+    fill_in 'Email', with: user.email
     click_button 'Submit'
-    expect(@user.reset_digest).to_not eq @user.reload.reset_digest
+    expect(user.reset_digest).to_not eq user.reload.reset_digest
     expect(ActionMailer::Base.deliveries.size).to eq 1
     expect(page).to have_flash_message
     expect(current_path).to eq root_path
@@ -26,15 +27,15 @@ feature 'Password reset' do
     visit edit_password_reset_path(reset_token, email: '')
     expect(current_path).to eq root_path
 
-    @user.toggle!(:activated)
-    visit edit_password_reset_path(reset_token, email: @user.email)
+    user.toggle!(:activated)
+    visit edit_password_reset_path(reset_token, email: user.email)
     expect(current_path).to eq root_path
-    @user.toggle!(:activated)
+    user.toggle!(:activated)
 
-    visit edit_password_reset_path(reset_token, email: @user.email)
+    visit edit_password_reset_path(reset_token, email: user.email)
     expect(page).to have_selector 'h1', 'Reset password'
     hidden = find '#email'
-    expect(hidden.value).to eq @user.email
+    expect(hidden.value).to eq user.email
     expect(hidden['type']).to eq 'hidden'
 
     fill_in 'Password', with: 'foobaz'
@@ -53,22 +54,22 @@ feature 'Password reset' do
     click_button 'Update password'
     expect(page).to be_logged_in
     expect(page).to have_flash_message
-    expect(current_path).to eq user_path(@user)
+    expect(current_path).to eq user_path(user)
   end
 
   # See Listing 10.57
   scenario 'expired token' do
     visit new_password_reset_path
-    fill_in 'Email', with: @user.email
+    fill_in 'Email', with: user.email
     click_button 'Submit'
 
     reset_token = extract_reset_token_from_last_mail
 
-    visit edit_password_reset_path(reset_token, email: @user.email)
+    visit edit_password_reset_path(reset_token, email: user.email)
     fill_in 'Password', with: 'foobar'
     fill_in 'Confirmation', with: 'foobar'
 
-    @user.update_attribute(:reset_sent_at, 3.hours.ago)
+    user.update_attribute(:reset_sent_at, 3.hours.ago)
 
     click_button 'Update password'
 
