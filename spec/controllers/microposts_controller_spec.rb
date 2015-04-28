@@ -16,8 +16,8 @@ describe MicropostsController do
 
   it 'should redirect destroy for wrong micropost' do
     log_in_as(user)
-    micropost = create :ants
-    expect{delete :destroy, id: micropost}.to_not change{Micropost.count}
+    micropost_ants = create :ants
+    expect{delete :destroy, id: micropost_ants}.to_not change{Micropost.count}
     expect(response).to redirect_to root_path
   end
 end
