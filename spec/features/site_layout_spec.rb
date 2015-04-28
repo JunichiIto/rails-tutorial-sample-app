@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Site layout' do
-  it 'layout links' do
+feature 'Site layout' do
+  scenario 'layout links' do
     visit root_path
     expect(page).to have_selector 'h1', text: 'Welcome to Sample App'
     expect(page).to have_link 'sample app', href: root_path

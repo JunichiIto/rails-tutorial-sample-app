@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'Users profile' do
+feature 'Users profile' do
   include ApplicationHelper
 
-  before do
+  background do
     @user = FactoryGirl.create :michael
   end
 
-  it 'profile display' do
+  scenario 'profile display' do
     visit user_path(@user)
     expect(page).to have_title full_title(@user.name)
     expect(page).to have_selector 'h1', text: @user.name

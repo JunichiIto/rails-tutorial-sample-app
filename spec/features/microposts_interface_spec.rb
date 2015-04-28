@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'Microposts interface' do
-  before do
+feature 'Microposts interface' do
+  background do
     @user = FactoryGirl.create :michael
     @archer = FactoryGirl.create :archer
   end
 
-  it 'micripost interface' do
+  scenario 'micripost interface' do
     log_in_as(@user)
     visit root_path
     expect(page).to have_selector 'div.pagination'

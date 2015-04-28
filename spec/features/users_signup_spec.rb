@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe 'Users signup', type: :feature do
-  before do
+feature 'Users signup', type: :feature do
+  background do
     ActionMailer::Base.deliveries.clear
   end
 
-  it 'invalid signup information' do
+  scenario 'invalid signup information' do
     visit signup_path
     fill_in 'Name', with: ''
     fill_in 'Email', with: 'user@invalid'
@@ -15,7 +15,7 @@ describe 'Users signup', type: :feature do
     expect(page).to have_selector 'h1', text: 'Sign up'
   end
 
-  it 'valid signup information with account activation' do
+  scenario 'valid signup information with account activation' do
     visit signup_path
     fill_in 'Name', with: 'Example User'
     fill_in 'Email', with: 'user@example.com'

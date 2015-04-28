@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Following' do
-  before do
+feature 'Following' do
+  background do
     @user = FactoryGirl.create :michael
     @other = FactoryGirl.create :archer
     create_relationships(michael: @user, archer: @other)
@@ -9,7 +9,7 @@ describe 'Following' do
     log_in_as @user
   end
 
-  it 'following page' do
+  scenario 'following page' do
     visit following_user_path(@user)
     expect(@user.following).to be_present
     expect(page).to have_content @user.following.count
@@ -18,7 +18,7 @@ describe 'Following' do
     end
   end
   
-  it 'followers page' do 
+  scenario 'followers page' do
     visit followers_user_path(@user)
     expect(@user.followers).to be_present
     expect(page).to have_content @user.followers.count
@@ -27,23 +27,23 @@ describe 'Following' do
     end
   end
 
-  it 'should follow a user the standard way' do
+  scenario 'should follow a user the standard way' do
     visit user_path(@other)
     expect{click_button 'Follow'}.to change{@user.following.count}.by(1)
   end
 
-  it 'should follow a user with Ajax', js: true do
+  scenario 'should follow a user with Ajax', js: true do
     visit user_path(@other)
     expect{click_button 'Follow'; sleep 0.2}.to change{@user.following.count}.by(1)
   end
 
-  it 'should unfollow a user the standard way' do
+  scenario 'should unfollow a user the standard way' do
     @user.follow(@other)
     visit user_path(@other)
     expect{click_button 'Unfollow'}.to change{@user.following.count}.by(-1)
   end
 
-  it 'should unfollow a user with Ajax', js: true do
+  scenario 'should unfollow a user with Ajax', js: true do
     @user.follow(@other)
     visit user_path(@other)
     expect{click_button 'Unfollow'; sleep 0.2}.to change{@user.following.count}.by(-1)

@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'Password reset' do
-  before do
+feature 'Password reset' do
+  background do
     ActionMailer::Base.deliveries.clear
     @user = FactoryGirl.create :michael
   end
 
-  it 'password resets' do
+  scenario 'password resets' do
     visit new_password_reset_path
     expect(page).to have_selector 'h1', 'Forgot password'
 
@@ -58,7 +58,7 @@ describe 'Password reset' do
   end
 
   # See Listing 10.57
-  it 'expired token' do
+  scenario 'expired token' do
     visit new_password_reset_path
     fill_in 'Email', with: @user.email
     click_button 'Submit'

@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe 'Users index' do
-  before do
+feature 'Users index' do
+  background do
     @admin = FactoryGirl.create :michael
     @non_admin = FactoryGirl.create :archer
     FactoryGirl.create_list :user, 30
   end
 
-  it 'index as admin including pagination and delete links' do
+  scenario 'index as admin including pagination and delete links' do
     log_in_as(@admin)
     visit users_path
     expect(page).to have_selector 'h1', text: 'All users'
@@ -24,7 +24,7 @@ describe 'Users index' do
     expect{click_link 'delete', href: user_path(@non_admin)}.to change{User.count}.by(-1)
   end
 
-  it 'index as non-admin' do
+  scenario 'index as non-admin' do
     log_in_as(@non_admin)
     visit users_path
     expect(page).to_not have_selector 'a', text: 'delete'

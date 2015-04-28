@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe 'Users edit' do
-  before do
+feature 'Users edit' do
+  background do
     @user = FactoryGirl.create :michael
   end
 
-  it 'unsuccessful edit' do
+  scenario 'unsuccessful edit' do
     log_in_as(@user)
     visit edit_user_path(@user)
     expect(page).to have_selector 'h1', text: 'Update your profile'
@@ -16,7 +16,7 @@ describe 'Users edit' do
     expect(page).to have_selector 'h1', text: 'Update your profile'
   end
 
-  it 'successful edit with friendly forwarding' do
+  scenario 'successful edit with friendly forwarding' do
     visit edit_user_path(@user)
     log_in_as(@user)
     expect(current_path).to eq edit_user_path(@user)

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe 'Users login', type: :feature do
-  before do
+feature 'Users login', type: :feature do
+  background do
     @user = FactoryGirl.create :michael
   end
 
-  it 'login with invalid information' do
+  scenario 'login with invalid information' do
     visit login_path
     expect(page).to have_selector 'h1', text: 'Log in'
     click_button 'Log in'
@@ -15,7 +15,7 @@ describe 'Users login', type: :feature do
     expect(page).to_not have_selector '.alert'
   end
 
-  it 'login with valid information' do
+  scenario 'login with valid information' do
     visit login_path
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'password'
@@ -42,12 +42,12 @@ describe 'Users login', type: :feature do
     Capybara.current_session.driver.request.cookies
   end
 
-  it 'login with remembering' do
+  scenario 'login with remembering' do
     log_in_as(@user, remember_me: '1')
     expect(cookies['remember_token']).to_not be_nil
   end
 
-  it 'login without remembering' do
+  scenario 'login without remembering' do
     log_in_as(@user, remember_me: '0')
     expect(cookies['remember_token']).to be_nil
   end
