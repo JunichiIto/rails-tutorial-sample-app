@@ -10,22 +10,22 @@ describe Micropost do
     expect(@micropost).to be_valid
   end
 
-  it 'user id should be present' do
+  specify 'user id should be present' do
     @micropost.user_id = nil
     expect(@micropost).to be_invalid
   end
 
-  it 'content should be present' do
+  specify 'content should be present' do
     @micropost.content = ' '
     expect(@micropost).to be_invalid
   end
 
-  it 'content should be at most 140 characters' do
+  specify 'content should be at most 140 characters' do
     @micropost.content = 'a' * 141
     expect(@micropost).to be_invalid
   end
 
-  it 'order should be most recent first' do
+  specify 'order should be most recent first' do
     content = FactoryGirl.attributes_for(:most_recent)[:content]
     most_recent = Micropost.find_by content: content
     expect(Micropost.first).to eq most_recent

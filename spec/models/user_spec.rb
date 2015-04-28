@@ -10,27 +10,27 @@ describe User do
     expect(@user).to be_valid
   end
 
-  it 'name should be present' do
+  specify 'name should be present' do
     @user.name = ' '
     expect(@user).to be_invalid
   end
 
-  it 'email should be present' do
+  specify 'email should be present' do
     @user.email = ' '
     expect(@user).to be_invalid
   end
 
-  it 'name should not be too long' do
+  specify 'name should not be too long' do
     @user.name = 'a' * 51
     expect(@user).to be_invalid
   end
 
-  it 'email should not be too long' do
+  specify 'email should not be too long' do
     @user.email = 'a' * 244 + '@example.com'
     expect(@user).to be_invalid
   end
 
-  it 'email validation should accept valid addresses' do
+  specify 'email validation should accept valid addresses' do
     valid_addresses = %w[user@example.com USER@foo.COM A_USE-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
       @user.email = valid_address
@@ -38,7 +38,7 @@ describe User do
     end
   end
 
-  it 'email validation should reject valid addresses' do
+  specify 'email validation should reject valid addresses' do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
@@ -46,23 +46,23 @@ describe User do
     end
   end
 
-  it 'email addresses should be unique' do
+  specify 'email addresses should be unique' do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
     @user.save
     expect(duplicate_user).to be_invalid
   end
 
-  it 'password should have a minimum length' do
+  specify 'password should have a minimum length' do
     @user.password = @user.password_confirmation = 'a' * 5
     expect(@user).to be_invalid
   end
 
-  it 'authenticated? should return false for a user with nil digest' do
+  specify 'authenticated? should return false for a user with nil digest' do
     expect(@user).to_not be_authenticated(:remember, '')
   end
 
-  it 'associated microposts should be destroyed' do
+  specify 'associated microposts should be destroyed' do
     @user.save
     @user.microposts.create!(content: 'Lorem ipsum')
     expect{@user.destroy}.to change{Micropost.count}.by(-1)
@@ -79,7 +79,7 @@ describe User do
     expect(michael).to_not be_following(archer)
   end
 
-  it 'feed should have the right posts' do
+  specify 'feed should have the right posts' do
     michael = FactoryGirl.create :michael
     archer = FactoryGirl.create :archer
     lana = FactoryGirl.create :lana

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe UserMailer do
-  it 'account_activation' do
+  specify 'account_activation' do
     user = FactoryGirl.create :michael
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
@@ -12,7 +12,8 @@ describe UserMailer do
     expect(mail.body.encoded).to match user.activation_token
     expect(mail.body.encoded).to match CGI::escape(user.email)
   end
-  it 'password reset' do
+
+  specify 'password reset' do
     user = FactoryGirl.create :michael
     user.reset_token = User.new_token
     mail = UserMailer.password_reset(user)

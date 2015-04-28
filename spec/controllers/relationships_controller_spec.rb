@@ -5,12 +5,12 @@ describe RelationshipsController do
     @relationships = create_relationships
   end
 
-  it 'create should require logged-in user' do
+  specify 'create should require logged-in user' do
     expect{post :create}.to_not change{Relationship.count}
     expect(response).to redirect_to login_url
   end
 
-  it 'destroy should require logged-in user' do
+  specify 'destroy should require logged-in user' do
     expect{delete :destroy, id: @relationships.first}.to_not change{Relationship.count}
     expect(response).to redirect_to login_url
   end
