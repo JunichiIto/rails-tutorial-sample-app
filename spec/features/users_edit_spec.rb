@@ -28,8 +28,7 @@ feature 'Users edit' do
     expect(page).to have_flash_message
     expect(current_path).to eq user_path(@user)
     @user.reload
-    expect(@user.name).to eq name
-    expect(@user.email).to eq email
+    expect(@user).to have_attributes name: name, email: email
   end
 end
 

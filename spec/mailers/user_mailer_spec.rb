@@ -5,23 +5,27 @@ describe UserMailer do
     user = create :michael
     user.activation_token = User.new_token
     mail = UserMailer.account_activation(user)
-    expect(mail.subject).to eq 'Account activation'
-    expect(mail.to).to eq [user.email]
-    expect(mail.from).to eq ['noreply@example.com']
-    expect(mail.body.encoded).to match user.name
-    expect(mail.body.encoded).to match user.activation_token
-    expect(mail.body.encoded).to match CGI::escape(user.email)
+    expect(mail).to have_attributes(
+      subject: 'Account activation',
+      to: [user.email],
+      from: ['noreply@example.com']
+    )
+    expect(mail.body.encoded).to match(user.name)
+      .and match(user.activation_token)
+      .and match(CGI::escape(user.email))
   end
 
   specify 'password reset' do
     user = create :michael
     user.reset_token = User.new_token
     mail = UserMailer.password_reset(user)
-    expect(mail.subject).to eq 'Password reset'
-    expect(mail.to).to eq [user.email]
-    expect(mail.from).to eq ['noreply@example.com']
-    expect(mail.body.encoded).to match user.reset_token
-    expect(mail.body.encoded).to match CGI::escape(user.email)
+    expect(mail).to have_attributes(
+      subject: 'Password reset',
+      to: [user.email],
+      from: ['noreply@example.com']
+    )
+    expect(mail.body.encoded).to match(user.reset_token)
+      .and match(CGI::escape(user.email))
   end
 end
 # require 'test_helper'
