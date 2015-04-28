@@ -23,6 +23,16 @@ describe SessionsController do
     delete :destroy
     expect(response).to redirect_to(root_path)
   end
+
+  specify 'login with remembering' do
+    post :create, session: { email: @user.email, password: 'password', remember_me: '1' }
+    expect(cookies['remember_token']).to be_present
+  end
+
+  specify 'login without remembering' do
+    post :create, session: { email: @user.email, password: 'password', remember_me: '0' }
+    expect(cookies['remember_token']).to be_blank
+  end
 end
 
 # require 'test_helper'

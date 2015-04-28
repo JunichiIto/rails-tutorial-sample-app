@@ -38,19 +38,7 @@ feature 'Users login', type: :feature do
     expect(page).to_not have_link 'Profile', href: user_path(@user)
   end
 
-  let(:cookies) do
-    Capybara.current_session.driver.request.cookies
-  end
-
-  scenario 'login with remembering' do
-    log_in_as(@user, remember_me: '1')
-    expect(cookies['remember_token']).to_not be_nil
-  end
-
-  scenario 'login without remembering' do
-    log_in_as(@user, remember_me: '0')
-    expect(cookies['remember_token']).to be_nil
-  end
+  # NOTE login with/without remembering tests are in sessions_controller_spec
 end
 
 # require 'test_helper'
