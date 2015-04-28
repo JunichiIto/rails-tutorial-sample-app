@@ -20,14 +20,14 @@ feature 'Users login', type: :feature do
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    expect(is_logged_in?).to be_truthy
+    expect(page).to be_logged_in
     expect(current_path).to eq user_path(@user)
     expect(page).to have_selector 'h1', text: @user.name
     expect(page).to_not have_link 'Log in', href: login_path
     expect(page).to have_link 'Log out', href: logout_path
     expect(page).to have_link 'Profile', href: user_path(@user)
     click_link 'Log out'
-    expect(is_logged_in?).to_not be_truthy
+    expect(page).to_not be_logged_in
     expect(current_path).to eq root_path
 
     # Simulate a user clicking logout in a second window.

@@ -51,7 +51,7 @@ feature 'Password reset' do
     fill_in 'Password', with: 'foobaz'
     fill_in 'Confirmation', with: 'foobaz'
     click_button 'Update password'
-    expect(is_logged_in?).to be_truthy
+    expect(page).to be_logged_in
     expect(page).to have_flash_message
     expect(current_path).to eq user_path(@user)
   end

@@ -8,7 +8,7 @@ describe SessionsHelper do
 
   specify 'current_user returns right user when session is nil' do
     expect(current_user).to eq @user
-    expect(is_logged_in?).to be_truthy
+    expect(session).to be_logged_in
   end
 
   specify 'current_user returns nil when remember digest is wrong' do

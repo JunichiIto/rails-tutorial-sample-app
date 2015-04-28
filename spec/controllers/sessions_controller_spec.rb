@@ -13,11 +13,11 @@ describe SessionsController do
   specify 'a user clicking logout in a second window' do
     post :create, session: { email: @user.email, password: 'password' }
     expect(response).to redirect_to(user_path(@user))
-    expect(is_logged_in?).to be_truthy
+    expect(session).to be_logged_in
 
     delete :destroy
     expect(response).to redirect_to(root_path)
-    expect(is_logged_in?).to_not be_truthy
+    expect(session).to_not be_logged_in
 
     # Simulate a user clicking logout in a second window.
     delete :destroy

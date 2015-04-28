@@ -28,18 +28,18 @@ feature 'Users signup', type: :feature do
     expect(user).to_not be_activated
 
     log_in_as(user)
-    expect(is_logged_in?).to_not be_truthy
+    expect(page).to_not be_logged_in
 
     visit edit_account_activation_path('invalid token')
-    expect(is_logged_in?).to_not be_truthy
+    expect(page).to_not be_logged_in
 
     visit edit_account_activation_path(activation_token, email: 'wrong')
-    expect(is_logged_in?).to_not be_truthy
+    expect(page).to_not be_logged_in
 
     visit edit_account_activation_path(activation_token, email: user.email)
     expect(user.reload).to be_activated
     expect(page).to have_selector 'h1', text: user.name
-    expect(is_logged_in?).to be_truthy
+    expect(page).to be_logged_in
   end
 end
 #
