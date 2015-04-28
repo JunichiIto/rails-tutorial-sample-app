@@ -25,7 +25,7 @@ describe 'Users signup', type: :feature do
     expect(ActionMailer::Base.deliveries.size).to eq 1
     activation_token = ActionMailer::Base.deliveries.last.body.encoded[/(?<=account_activations\/)[^\/]+/]
     user = User.last
-    expect(user.activated?).to_not be_truthy
+    expect(user).to_not be_activated
 
     log_in_as(user)
     expect(is_logged_in?).to_not be_truthy
@@ -37,7 +37,7 @@ describe 'Users signup', type: :feature do
     expect(is_logged_in?).to_not be_truthy
 
     visit edit_account_activation_path(activation_token, email: user.email)
-    expect(user.reload.activated?).to be_truthy
+    expect(user.reload).to be_activated
     expect(page).to have_selector 'h1', text: user.name
     expect(is_logged_in?).to be_truthy
   end

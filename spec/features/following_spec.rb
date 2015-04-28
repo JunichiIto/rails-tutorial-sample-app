@@ -11,7 +11,7 @@ describe 'Following' do
 
   it 'following page' do
     visit following_user_path(@user)
-    expect(@user.following.empty?).to_not be_truthy
+    expect(@user.following).to be_present
     expect(page).to have_content @user.following.count
     @user.following.each do |user|
       expect(page).to have_link user.name, href: user_path(user)
@@ -20,7 +20,7 @@ describe 'Following' do
   
   it 'followers page' do 
     visit followers_user_path(@user)
-    expect(@user.followers.empty?).to_not be_truthy
+    expect(@user.followers).to be_present
     expect(page).to have_content @user.followers.count
     @user.followers.each do |user|
       expect(page).to have_link user.name, href: user_path(user)

@@ -7,22 +7,22 @@ describe Micropost do
   end
 
   it 'should be valid' do
-    expect(@micropost.valid?).to be_truthy
+    expect(@micropost).to be_valid
   end
 
   it 'user id should be present' do
     @micropost.user_id = nil
-    expect(@micropost.valid?).to_not be_truthy
+    expect(@micropost).to be_invalid
   end
 
   it 'content should be present' do
     @micropost.content = ' '
-    expect(@micropost.valid?).to_not be_truthy
+    expect(@micropost).to be_invalid
   end
 
   it 'content should be at most 140 characters' do
     @micropost.content = 'a' * 141
-    expect(@micropost.valid?).to_not be_truthy
+    expect(@micropost).to be_invalid
   end
 
   it 'order should be most recent first' do

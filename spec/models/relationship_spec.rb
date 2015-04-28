@@ -6,17 +6,17 @@ describe Relationship do
   end
 
   it 'should be valid' do
-    expect(@relationship.valid?).to be_truthy
+    expect(@relationship).to be_valid
   end
 
   it 'should require a follower_id' do
     @relationship.follower_id = nil
-    expect(@relationship.valid?).to_not be_truthy
+    expect(@relationship).to be_invalid
   end
 
   it 'should require a followed_id' do
     @relationship.followed_id = nil
-    expect(@relationship.valid?).to_not be_truthy
+    expect(@relationship).to be_invalid
   end
 end
 
