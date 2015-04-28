@@ -34,9 +34,8 @@ feature 'Password reset' do
 
     visit edit_password_reset_path(reset_token, email: user.email)
     expect(page).to have_selector 'h1', 'Reset password'
-    hidden = find '#email'
+    hidden = find 'input[name=email][type=hidden]'
     expect(hidden.value).to eq user.email
-    expect(hidden['type']).to eq 'hidden'
 
     fill_in 'Password', with: 'foobaz'
     fill_in 'Confirmation', with: 'barquux'
