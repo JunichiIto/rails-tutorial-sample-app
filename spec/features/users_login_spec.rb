@@ -23,7 +23,7 @@ feature 'Users login', type: :feature do
       .and have_selector('h1', text: user.name)
       .and have_link('Log out', href: logout_path)
       .and have_link('Profile', href: user_path(user))
-      .and have_link('Log in', href: login_path, count: 0)
+      .and have_no_link('Log in', href: login_path)
     click_link 'Log out'
     expect(page).to_not be_logged_in
     expect(current_path).to eq root_path
@@ -32,8 +32,8 @@ feature 'Users login', type: :feature do
     # => See sessions_controller_spec
 
     expect(page).to have_link('Log in', href: login_path)
-      .and have_link('Log out', href: logout_path, count: 0)
-      .and have_link('Profile', href: user_path(user), count: 0)
+      .and have_no_link('Log out', href: logout_path)
+      .and have_no_link('Profile', href: user_path(user))
   end
 
   # NOTE login with/without remembering tests are in sessions_controller_spec

@@ -32,7 +32,7 @@ feature 'Microposts interface' do
     expect{click_link 'delete', href: micropost_path(first_micropost)}.to change{Micropost.count}.by(-1)
 
     visit user_path(other)
-    expect(page).to_not have_link 'delete'
+    expect(page).to have_no_link 'delete'
   end
 end
 
