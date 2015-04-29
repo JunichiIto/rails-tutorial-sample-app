@@ -11,7 +11,7 @@ feature 'Users signup', type: :feature do
     fill_in 'Email', with: 'user@invalid'
     fill_in 'Password', with: 'foo'
     fill_in 'Confirmation', with: 'bar'
-    expect { click_on 'Create my account' }.to_not change { User.count }
+    expect { click_button 'Create my account' }.to_not change { User.count }
     expect(page).to have_selector 'h1', text: 'Sign up'
   end
 
@@ -21,7 +21,7 @@ feature 'Users signup', type: :feature do
     fill_in 'Email', with: 'user@example.com'
     fill_in 'Password', with: 'password'
     fill_in 'Confirmation', with: 'password'
-    expect { click_on 'Create my account' }.to change { User.count }.by(1)
+    expect { click_button 'Create my account' }.to change { User.count }.by(1)
     expect(ActionMailer::Base.deliveries.size).to eq 1
     activation_token = extract_activation_token_from_last_mail
     user = User.last
