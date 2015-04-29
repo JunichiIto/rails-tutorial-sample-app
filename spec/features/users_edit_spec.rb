@@ -25,8 +25,7 @@ feature 'Users edit' do
     click_button 'Save changes'
     expect(page).to have_flash_message
     expect(current_path).to eq user_path(user)
-    user.reload
-    expect(user).to have_attributes name: name, email: email
+    expect(user.reload).to have_attributes name: name, email: email
   end
 end
 
