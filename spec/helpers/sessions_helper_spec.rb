@@ -17,6 +17,7 @@ describe SessionsHelper do
     expect(current_user).to be_nil
   end
 end
+
 # require 'test_helper'
 #
 # class SessionsHelperTest < ActionView::TestCase

@@ -11,6 +11,7 @@ feature 'Site layout' do
       .and have_link('Contact', href: contact_path)
   end
 end
+
 # require 'test_helper'
 #
 # class SiteLayoutTest < ActionDispatch::IntegrationTest

@@ -28,6 +28,7 @@ describe UserMailer do
       .and match(CGI::escape(user.email))
   end
 end
+
 # require 'test_helper'
 #
 # class UserMailerTest < ActionMailer::TestCase

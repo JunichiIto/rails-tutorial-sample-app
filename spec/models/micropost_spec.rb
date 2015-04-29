@@ -33,6 +33,7 @@ describe Micropost do
     expect(Micropost.first).to eq most_recent
   end
 end
+
 # require 'test_helper'
 #
 # class MicropostTest < ActiveSupport::TestCase
