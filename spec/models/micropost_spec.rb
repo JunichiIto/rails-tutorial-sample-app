@@ -29,7 +29,7 @@ describe Micropost do
   specify 'order should be most recent first' do
     content = attributes_for(:most_recent)[:content]
     most_recent = Micropost.find_by content: content
-    expect(Micropost.count).to be > 1
+    expect(Micropost.count).to be > 1, 'Confirm test data exists'
     expect(Micropost.first).to eq most_recent
   end
 end
