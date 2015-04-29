@@ -11,3 +11,5 @@ RSpec::Matchers.define :have_flash_message do |*expected|
     "expected that page does not have flash message in\n#{actual.text}"
   end
 end
+
+RSpec::Matchers.define_negated_matcher :have_no_flash_message, :have_flash_message
