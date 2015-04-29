@@ -4,10 +4,10 @@ RSpec::Matchers.define :have_delete_link do |*expected|
   end
 
   failure_message do |actual|
-    "expected that page has delete link #{expected} in\n#{actual.body}"
+    "expected that page has delete link #{expected} in\n#{actual.text}"
   end
 
   failure_message_when_negated do |actual|
-    "expected that page does not have delete link #{expected} in\n#{actual.body}"
+    "expected that page does not have delete link #{expected} in\n#{actual.text}"
   end
 end
