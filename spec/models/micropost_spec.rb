@@ -21,6 +21,9 @@ describe Micropost do
   specify 'content should be at most 140 characters' do
     micropost.content = 'a' * 141
     expect(micropost).to be_invalid
+
+    micropost.content = 'a' * 140
+    expect(micropost).to be_valid
   end
 
   specify 'order should be most recent first' do

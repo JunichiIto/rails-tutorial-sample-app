@@ -23,11 +23,17 @@ describe User do
   specify 'name should not be too long' do
     user.name = 'a' * 51
     expect(user).to be_invalid
+
+    user.name = 'a' * 50
+    expect(user).to be_valid
   end
 
   specify 'email should not be too long' do
     user.email = 'a' * 244 + '@example.com'
     expect(user).to be_invalid
+
+    user.email = 'a' * 243 + '@example.com'
+    expect(user).to be_valid
   end
 
   specify 'email validation should accept valid addresses' do
