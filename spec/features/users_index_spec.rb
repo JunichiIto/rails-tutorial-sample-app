@@ -26,6 +26,8 @@ feature 'Users index' do
   scenario 'index as non-admin' do
     log_in_as(non_admin)
     visit users_path
+    expect(page).to have_selector('h1', text: 'All users')
+      .and have_selector('div.pagination')
     expect(page).to have_no_link 'delete'
   end
 end

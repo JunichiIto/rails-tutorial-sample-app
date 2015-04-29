@@ -87,6 +87,7 @@ describe User do
     create_relationships(michael: michael, archer: archer, lana: lana)
 
     expect([michael.microposts, archer.microposts, lana.microposts]).to all(be_present)
+
     lana.microposts.each do |post_following|
       expect(michael.feed).to include post_following
     end
