@@ -10,7 +10,7 @@ feature 'Microposts interface' do
     expect(page).to have_selector('div.pagination')
       .and have_selector('input[type=file]')
 
-    expect{click_button 'Post'}.to_not change{Micropost.count}
+    expect { click_button 'Post' }.to_not change { Micropost.count }
     expect(page).to have_selector 'div#error_explanation'
 
     content = 'This micropost really ties the room together'
@@ -19,7 +19,7 @@ feature 'Microposts interface' do
     picture = 'spec/fixtures/rails.png'
     attach_file 'micropost_picture', picture
 
-    expect{click_button 'Post'}.to change{Micropost.count}.by(1)
+    expect { click_button 'Post' }.to change { Micropost.count }.by(1)
 
     new_micropost = Micropost.unscoped.order(:id).last
     expect(new_micropost.picture?).to be_truthy
@@ -29,7 +29,7 @@ feature 'Microposts interface' do
 
     expect(page).to have_link 'delete'
     first_micropost = user.microposts.paginate(page: 1).first
-    expect{click_link 'delete', href: micropost_path(first_micropost)}.to change{Micropost.count}.by(-1)
+    expect { click_link 'delete', href: micropost_path(first_micropost) }.to change { Micropost.count }.by(-1)
 
     visit user_path(other)
     expect(page).to have_no_link 'delete'

@@ -34,13 +34,13 @@ describe UsersController do
   end
 
   it 'should redirect destroy when not logged in' do
-    expect{delete :destroy, id: user}.to_not change{User.count}
+    expect { delete :destroy, id: user }.to_not change { User.count }
     expect(response).to redirect_to login_path
   end
 
   it 'should redirect destroy when logged in as non-admin' do
     log_in_as(other_user)
-    expect{delete :destroy, id: user}.to_not change{User.count}
+    expect { delete :destroy, id: user }.to_not change { User.count }
     expect(response).to redirect_to root_path
   end
 
