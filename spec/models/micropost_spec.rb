@@ -32,6 +32,17 @@ describe Micropost do
     expect(Micropost.count).to be > 1, 'Confirm test data exists'
     expect(Micropost.first).to eq most_recent
   end
+
+  specify 'picture size should be at most 5MB' do
+    # Use mock to control file size
+    picture = File.new('spec/fixtures/rails.png')
+    allow(picture).to receive(:size).and_return(5.1.megabytes)
+    allow(micropost).to receive(:picture).and_return(picture)
+    expect(micropost).to be_invalid
+
+    allow(picture).to receive(:size).and_return(5.0.megabytes)
+    expect(micropost).to be_valid
+  end
 end
 
 # require 'test_helper'
