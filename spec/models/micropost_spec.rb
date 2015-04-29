@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Micropost do
-  let(:user) { create :michael }
+  let!(:user) { create :michael_with_microposts }
   let(:micropost) { user.microposts.build(content: 'Lorem ipsum') }
 
   it 'should be valid' do
@@ -26,6 +26,7 @@ describe Micropost do
   specify 'order should be most recent first' do
     content = attributes_for(:most_recent)[:content]
     most_recent = Micropost.find_by content: content
+    expect(Micropost.count).to be > 2
     expect(Micropost.first).to eq most_recent
   end
 end
