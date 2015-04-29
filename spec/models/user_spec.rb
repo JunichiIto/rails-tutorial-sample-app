@@ -80,12 +80,13 @@ describe User do
   end
 
   specify 'feed should have the right posts' do
-    michael = create :michael
-    archer = create :archer
-    lana = create :lana
+    michael = create :michael_with_microposts
+    archer = create :archer_with_microposts
+    lana = create :lana_with_microposts
 
     create_relationships(michael: michael, archer: archer, lana: lana)
 
+    expect([michael.microposts, archer.microposts, lana.microposts]).to all(be_present)
     lana.microposts.each do |post_following|
       expect(michael.feed).to include post_following
     end

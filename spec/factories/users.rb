@@ -11,29 +11,38 @@ FactoryGirl.define do
       name 'Michael Example'
       email 'michael@example.com'
       admin true
-      after :create do |user|
-        create :tau_manifesto, user: user
-        create :cat_video, user: user
-        create :most_recent, user: user
-        30.times { create :micropost, user: user }
+
+      factory :michael_with_microposts do
+        after :create do |user|
+          create :tau_manifesto, user: user
+          create :cat_video, user: user
+          create :most_recent, user: user
+          30.times { create :micropost, user: user }
+        end
       end
     end
 
     factory :archer do
       name 'Sterling Archer'
       email 'duchess@example.gov'
-      after :create do |user|
-        create :ants, user: user
-        create :zone, user: user
+
+      factory :archer_with_microposts do
+        after :create do |user|
+          create :ants, user: user
+          create :zone, user: user
+        end
       end
     end
 
     factory :lana do
       name 'Lana Kane'
       email 'hands@example.gov'
-      after :create do |user|
-        create :tone, user: user
-        create :van, user: user
+
+      factory :lana_with_microposts do
+        after :create do |user|
+          create :tone, user: user
+          create :van, user: user
+        end
       end
     end
 

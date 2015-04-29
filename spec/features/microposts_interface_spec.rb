@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 feature 'Microposts interface' do
-  given(:user) { create :michael }
-  given(:other) { create :archer }
+  given(:user) { create :michael_with_microposts }
+  given(:other) { create :archer_with_microposts }
 
   scenario 'micripost interface' do
     log_in_as(user)
@@ -32,6 +32,7 @@ feature 'Microposts interface' do
     expect { click_link 'delete', href: micropost_path(first_micropost) }.to change { Micropost.count }.by(-1)
 
     visit user_path(other)
+    expect(other.microposts).to be_present
     expect(page).to have_no_link 'delete'
   end
 end
